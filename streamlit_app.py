@@ -1,3 +1,5 @@
+# 📁 Filename: app.py
+
 import streamlit as st
 import pandas as pd
 import re
@@ -53,7 +55,7 @@ if uploaded_file is not None:
         tfidf = TfidfVectorizer(max_features=10000, ngram_range=(1, 2), min_df=3, max_df=0.85, sublinear_tf=True)
         X = tfidf.fit_transform(X_text)
 
-        selector = SelectKBest(chi2, k=5000)
+        selector = SelectKBest(chi2, k=min(5000, X.shape[1]))
         X_selected = selector.fit_transform(X, y)
 
         smote = SMOTE(random_state=42)
